@@ -7,14 +7,6 @@
 		<script type="text/javascript">
 			$(function(){
 
-				// PubSub-Client erzeugen
-				var client = new Faye.Client('/faye');
-
-				// Topic 'Planeten' abonnieren
-				var subscription = client.subscribe('/allsongs', function(message){
-					addTableRow(message);
-				});
-
 				$('#songsform').submit(function(e){
 					e.preventDefault();
 				
