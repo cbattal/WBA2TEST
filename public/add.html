@@ -34,7 +34,7 @@
 
 					posten.done(function(e){
 						alert(data.name+' wurde hinzugefuegt.');
-						$('#planetenform')[0].reset();
+						$('#songsform')[0].reset();
 					});
 					posten.fail(function(e){
 						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
