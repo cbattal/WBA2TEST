@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Planeten</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type='text/javascript' src='/faye/client.js'></script>
+		<script type="text/javascript">
+			$(function(){
+
+				// PubSub-Client erzeugen
+				var client = new Faye.Client('/faye');
+
+				// Topic 'Planeten' abonnieren
+				var subscription = client.subscribe('/planeten', function(message){
+					addTableRow(message);
+				});
+
+				$('#planetenform').submit(function(e){
+					e.preventDefault();
+				
+					// Auslesen des Formulars
+					var data = {
+						"name": $('#name').val(), 
+						"abstand": $('#abstand').val(), 
+						"durchmesser": $('#durchmesser').val()
+					};
+
+					var posten = $.ajax({
+						type: 'POST',
+						url: '/planeten',
+						data: JSON.stringify(data),
+						contentType: 'application/json'
+					});
+
+					posten.done(function(e){
+						alert(data.name+' wurde hinzugefuegt.');
+						$('#planetenform')[0].reset();
+					});
+					posten.fail(function(e){
+						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+					});
+
+					
+				});
+
+			/*
+				var request = $.ajax({
+					type: 'GET',
+					url: '/planeten',
+					contentType: 'application/json'
+				});
+
+				request.done(function(data){
+					data.forEach(function(planet){
+						addTableRow(planet);
+					});	
+				});
+
+				request.fail(function(err){
+					alert('Es ist ein Fehler aufgetreten');
+				}); */
+
+			});
+/*
+			function addTableRow(planet){
+				var planetTable = $('#planettabelle');
+
+				planetTable.find('tbody').append('<tr><td>'+planet.name+'</td><td>'+planet.abstand+'</td><td>'+planet.durchmesser+'</td></tr>')
+			}
+
+*/
+			
+
+		</script>
+	</head>
+	<body>
+		<section>
+			<h1>Planeten hinzufügen</h1>
+			<form id="planetenform" name= "planetenform" action="/planeten" method="POST">
+				<table>
+					<tr><td>Name:</td><td><input id="name" name="name" type="application/json"></td></tr>
+					<tr><td>Abstand zu Sonne in Mio KM:</td><td><input id="abstand" name="abstand" type="application/json"></td></tr>
+					<tr><td>Durchmesser:</td><td><input id="durchmesser" name="durchmesser" type="application/json"></td></tr>
+					<tr><td><input type="submit" value="Senden"></td></tr>
+				</table>
+			</form>
+		</section>
+
+<!--
+		<section>
+			<h1>Tabelle mit allen Planeten</h1>
+			<table id="planettabelle">
+				<thead>
+					<th>Name</th>
+					<th>Abstand</th>
+					<th>Durchmesser</th>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</section>
+-->
+
+	</body>
+</html>

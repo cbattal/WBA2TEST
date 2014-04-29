@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Songs hinzufügen</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type='text/javascript' src='/faye/client.js'></script>
+		<script type="text/javascript">
+			$(function(){
+
+				// PubSub-Client erzeugen
+				var client = new Faye.Client('/faye');
+
+				// Topic 'Planeten' abonnieren
+				var subscription = client.subscribe('/allsongs', function(message){
+					addTableRow(message);
+				});
+
+				$('#songsform').submit(function(e){
+					e.preventDefault();
+				
+					// Auslesen des Formulars
+					var data = {
+						"titel": $('#titel').val(), 
+						"interpret": $('#interpret').val(), 
+						"genre": $('#genre').val()
+					};
+
+					var posten = $.ajax({
+						type: 'POST',
+						url: '/planeten',
+						data: JSON.stringify(data),
+						contentType: 'application/json'
+					});
+
+					posten.done(function(e){
+						alert(data.name+' wurde hinzugefuegt.');
+						$('#planetenform')[0].reset();
+					});
+					posten.fail(function(e){
+						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+					});
+
+					
+				});
+
+				
+
+		</script>
+	</head>
+	<body>
+		<section>
+			<h1>Lieder hinzufügen</h1>
+			<form id="songsform" name= "songsform" action="/allsongs" method="POST">
+				<table>
+					<tr><td>Titel:</td><td><input id="titel" name="titel" type="application/json"></td></tr>
+					<tr><td>Interpret:</td><td><input id="interpret" name="interpret" type="application/json"></td></tr>
+					<tr><td>Genre:</td><td><input id="genre" name="genre" type="application/json"></td></tr>
+					<tr><td><input type="submit" value="Senden"></td></tr>
+				</table>
+			</form>
+		</section>
+
+	</body>
+</html>

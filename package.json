@@ -1,0 +1,11 @@
+{
+	"name": "planetJS",
+	"description": "WBA2 - 3. Workshop",
+	"main": "app.js",
+	"author": "Gruppe 28",
+	"dependencies": {
+		"express": "3.x",
+		"mongoskin": "*",
+    "faye": "*"
+	}
+}
