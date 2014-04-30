@@ -42,7 +42,7 @@ app.post('/allsongs', function(req, res, next){
 			next(err);
 		}
 		else{
-			console.log(req.body.name + 'wurde der Datenbank hinzugefuegt')
+			console.log(req.body.titel + ' wurde der Datenbank hinzugefuegt')
 			res.write('Daten wurden gespeichert');
 		}
 	});
