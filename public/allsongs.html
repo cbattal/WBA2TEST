@@ -10,7 +10,7 @@
 				// PubSub-Client erzeugen
 				var client = new Faye.Client('/faye');
 
-				// Topic 'Planeten' abonnieren
+				// Topic 'Allen Songs' abonnieren
 				var subscription = client.subscribe('/allsongs', function(message){
 					addTableRow(message);
 				});

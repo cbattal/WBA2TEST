@@ -7,7 +7,7 @@
 		<script type="text/javascript">
 			$(function(){
 
-				$('#songsform').submit(function(e){
+				$('#songsform').click(function(e){
 					e.preventDefault();
 				
 					// Auslesen des Formulars
@@ -20,17 +20,17 @@
 
 					var posten = $.ajax({
 						type: 'POST',
-						url: '/planeten',
+						url: '/allsongs',
 						data: JSON.stringify(data),
 						contentType: 'application/json'
 					});
 
 					posten.done(function(e){
-						alert(data.name+' wurde hinzugefuegt.');
+						alert(data.titel +' wurde hinzugefuegt.');
 						$('#songsform')[0].reset();
 					});
 					posten.fail(function(e){
-						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+						alert(data.titel +' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
 					});
 
 					
