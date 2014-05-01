@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Alle Songs</title>
+		<title>Rock</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script type='text/javascript' src='/faye/client.js'></script>
 		<script type="text/javascript">
@@ -11,13 +11,13 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Allen Songs' abonnieren
-				var subscription = client.subscribe('/allsongs', function(message){
+				var subscription = client.subscribe('/rock', function(message){
 					addTableRow(message);
 				});
 					
 				var request = $.ajax({
 					type: 'GET',
-					url: '/allsongs',
+					url: '/rock',
 					contentType: 'application/json'
 				});
 

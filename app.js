@@ -89,6 +89,28 @@ app.get('/allsongs', function(req, res, next){
 	});
 });
 
+// GET auf 'rock'
+app.get('/rock', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find({genre: "Rock"}).sort({titel: 1}).toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+
 /* FEHLERHAFT!
 //Suche
 app.post('/suche', function(req, res, next){
