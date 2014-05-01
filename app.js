@@ -191,7 +191,7 @@ app.get('/rnb', function(req, res, next){
 	});
 });
 
-// GET auf 'top'
+// GET auf 'top5'
 app.get('/top5', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
