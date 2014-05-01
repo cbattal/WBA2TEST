@@ -54,6 +54,20 @@ app.post('/allsongs', function(req, res, next){
 
 	// Nachricht an Topic 'allsongs' publishen
 	var publication = pubClient.publish('/allsongs', req.body);
+	
+	if(req.body.genre == "Rock"){
+		var publication = pubClient.publish('/rock', req.body);
+	}
+	if(req.body.genre == "Pop"){
+		var publication = pubClient.publish('/pop', req.body);
+	}
+	if(req.body.genre == "RnB"){
+		var publication = pubClient.publish('/rnb', req.body);
+	}
+	if(req.body.genre == "Hip Hop"){
+		var publication = pubClient.publish('/hiphop', req.body);
+	}
+
 
 	// Promise-Handler wenn publishen erfolgreich
 	publication.then(function(){
