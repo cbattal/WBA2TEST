@@ -111,6 +111,72 @@ app.get('/rock', function(req, res, next){
 	});
 });
 
+// GET auf 'hip hop'
+app.get('/hiphop', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find({genre: "Hip Hop"}).sort({titel: 1}).toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+
+// GET auf 'pop'
+app.get('/pop', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find({genre: "Pop"}).sort({titel: 1}).toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+
+// GET auf 'rnb'
+app.get('/rnb', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find({genre: "RnB"}).sort({titel: 1}).toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+
 /* FEHLERHAFT!
 //Suche
 app.post('/suche', function(req, res, next){

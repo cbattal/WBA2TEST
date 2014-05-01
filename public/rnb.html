@@ -1,9 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Auflistung der RnB Songs</title>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type='text/javascript' src='/faye/client.js'></script>
+		<script type="text/javascript">
+			$(function(){
+
+				// PubSub-Client erzeugen
+				var client = new Faye.Client('/faye');
+
+				// Topic 'Allen Songs' abonnieren
+				var subscription = client.subscribe('/rnb', function(message){
+					addTableRow(message);
+				});
+					
+				var request = $.ajax({
+					type: 'GET',
+					url: '/rnb',
+					contentType: 'application/json'
+				});
+
+				request.done(function(data){
+					data.forEach(function(songs){
+						addTableRow(songs);
+					});	
+				});
+
+				request.fail(function(err){
+					alert('Es ist ein Fehler aufgetreten');
+				});
+
+			});
+
+			function addTableRow(songs){
+				var songsTable = $('#songstabelle');
+
+				songsTable.find('tbody').append(
+					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</tr>');
+			};
+
+			function addVoteForm(songs){
+
+			};
+
+			
+
+		</script>
 </head>
 <body>
+		<section>
+			<h1>Tabelle mit Liedern aus dem Bereich Pop</h1>
+			<table id="songstabelle">
+				<thead>
+					<th>Titel</th>
+					<th>Interpret</th>
+					<th>Gerne</th>
+					<th>Rating</th>
+				</thead>
+				<tbody>
 
-</body>
+				</tbody>
+			</table>
+		</section>
+
+	</body>
 </html>
