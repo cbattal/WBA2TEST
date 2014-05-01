@@ -192,12 +192,13 @@ app.post('/suche', function(req, res, next){
 		}
 	});
 });
+*/
 
 //GET auf Suche
 app.get('/suche', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
-	songsCollection.find().toArray(function(err, result){
+	songsCollection.find().toArray(req.body, function(err, result){
 		
 		// Fehlerbehandlung
 		if(err){
@@ -214,7 +215,7 @@ app.get('/suche', function(req, res, next){
 		}
 	});
 });
-*/
+
 
 // Errorhandler
 app.use(function (error, request, reponse, next){
