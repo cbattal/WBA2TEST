@@ -15,19 +15,18 @@
 					addTableRow(message);
 				});
 
-				$('#planetenform').submit(function(e){
+				$('#suchform').submit(function(e){
 					e.preventDefault();
 				
 					// Auslesen des Formulars
 					var data = {
-						"name": $('#name').val(), 
-						"abstand": $('#abstand').val(), 
-						"durchmesser": $('#durchmesser').val()
+						"suche": $('#suche').val(), 
+						"suchenach": $('#suchenach').val()
 					};
 
 					var posten = $.ajax({
 						type: 'POST',
-						url: '/planeten',
+						url: '/suche',
 						data: JSON.stringify(data),
 						contentType: 'application/json'
 					});
@@ -79,9 +78,16 @@
 			<form id="suchform" name= "suchform" action="/suche" method="POST">
 				<table>
 					<tr>
-						<td><input id="name" name="name" type="application/json"></td><td><input id="abstand" name="abstand" type="application/json"></td></tr>
-					<td>Durchmesser:</td><td><input id="durchmesser" name="durchmesser" type="application/json"></td></tr>
-					<tr><td><input type="submit" value="Suchen"></td></tr>
+						<td><input id="suche" name="suche" type="application/json" value="Such Eingabe"></td>
+						<td>
+							<select id="suchenach" size="1">
+								<option value="titel">Titel</option>
+								<option value="interpret">Interpret</option>
+							</select>
+						</td>
+
+						<td><input type="submit" value="Suchen"></td>
+					</tr>
 				</table>
 			</form>
 		</section>

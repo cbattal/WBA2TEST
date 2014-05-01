@@ -89,6 +89,44 @@ app.get('/allsongs', function(req, res, next){
 	});
 });
 
+/* FEHLERHAFT!
+//Suche
+app.post('/suche', function(req, res, next){
+	
+	// Dokumente in Collektion "songs" speichern
+	songsCollection.find({req.body.suchenach: req.body.suche}).toArray(function(err, result){
+		if(err){
+			next(err);
+		}
+		else{
+			console.log(req.body.titel + ' wurde der Datenbank hinzugefuegt')
+			res.write('Daten wurden gespeichert');
+		}
+	});
+});
+
+//GET auf Suche
+app.get('/suche', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find().toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+*/
 
 // Errorhandler
 app.use(function (error, request, reponse, next){
