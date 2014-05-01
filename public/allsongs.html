@@ -2,11 +2,14 @@
 <html>
 	<head>
 		<title>Alle Songs</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
+		<script type="text/javascript" src='jquery.tablesorter.js'></script>
 		<script type='text/javascript' src='/faye/client.js'></script>
 		<script type="text/javascript">
 			$(function(){
-
+				
+			
+				
 				// PubSub-Client erzeugen
 				var client = new Faye.Client('/faye');
 
@@ -43,7 +46,8 @@
 			function addVoteForm(songs){
 
 			};
-
+			
+			 $("#songstabelle").tablesorter({ sortList: [3,0]});
 			
 
 		</script>
@@ -51,7 +55,7 @@
 	<body>
 		<section>
 			<h1>Tabelle mit allen Liedern</h1>
-			<table id="songstabelle">
+			<table id="songstabelle" class="tablesorter">
 				<thead>
 					<th>Titel</th>
 					<th>Interpret</th>
