@@ -11,8 +11,9 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Planeten' abonnieren
-				var subscription = client.subscribe('/planeten', function(message){
-					addTableRow(message);
+				var subscription = client.subscribe('/allsongs', function(message){
+					//addTableRow(message);
+					addBenachrichtigung(message);
 				});
 
 				$('#suchform').submit(function(e){
@@ -39,36 +40,40 @@
 						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
 					});
 
-					
 				});
-
-			/*
-				var request = $.ajax({
+			
+				var requestlieder = $.ajax({
 					type: 'GET',
-					url: '/planeten',
+					url: '/allsongs',
 					contentType: 'application/json'
 				});
 
-				request.done(function(data){
-					data.forEach(function(planet){
-						addTableRow(planet);
+				requestlieder.done(function(data){
+					data.forEach(function(songs){
+						//addTableRow(songs);
+						addBenachrichtigung(songs);
 					});	
 				});
 
-				request.fail(function(err){
+				requestlieder.fail(function(err){
 					alert('Es ist ein Fehler aufgetreten');
-				}); */
+				});
 
 			});
-/*
-			function addTableRow(planet){
-				var planetTable = $('#planettabelle');
 
-				planetTable.find('tbody').append('<tr><td>'+planet.name+'</td><td>'+planet.abstand+'</td><td>'+planet.durchmesser+'</td></tr>')
-			}
+			function addTableRow(songs){
+				var songsTable = $('#songstabelle');
 
-*/
-			
+				songsTable.find('tbody').append(
+					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</tr>');
+			};
+
+			function addBenachrichtigung(songs){
+				var benachrichtigungTable = $('#benachrichtigung');
+
+				benachrichtigungTable.find('tbody').append('<tr><td>Das Lied <b>'+songs.titel+'</b> von '+songs.interpret+' wurde neu in die Datenbank eingetragen!</td></tr>');
+			};
+
 
 		</script>
 	</head>
@@ -81,8 +86,8 @@
 						<td><input id="suche" name="suche" type="application/json"></td>
 						<td>
 							<select id="suchenach" size="1">
-								<option value="titel">Titel</option>
-								<option value="interpret">Interpret</option>
+								<option>Titel</option>
+								<option>Interpret</option>
 							</select>
 						</td>
 
@@ -90,6 +95,15 @@
 					</tr>
 				</table>
 			</form>
+		</section>
+
+		<section>
+			<h1>Benachrichtigung</h1>
+			<table id="benachrichtigung">
+				<tbody>
+
+				</tbody>
+			</table>
 		</section>
 
 <!--
