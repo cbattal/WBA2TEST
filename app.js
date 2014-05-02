@@ -56,7 +56,7 @@ app.post('/allsongs', function(req, res, next){
 	var publication = pubClient.publish('/allsongs', req.body);
 
 	//Nachricht an Topic 'Updates' (alle Benachrichtigungen) publishen
-	var publication = pubClient.publish('/updates', req.body);
+	//var publication = pubClient.publish('/updates', req.body);
 
 	if(req.body.genre == "Rock"){
 		var publication = pubClient.publish('/rock', req.body);
@@ -193,7 +193,7 @@ app.get('/rnb', function(req, res, next){
 		}
 	});
 });
-
+/*
 // GET auf 'updates'
 app.get('/updates', function(req, res, next){
 
@@ -215,6 +215,7 @@ app.get('/updates', function(req, res, next){
 		}
 	});
 });
+*/
 
 // GET auf 'top5'
 app.get('/top5', function(req, res, next){
@@ -238,28 +239,17 @@ app.get('/top5', function(req, res, next){
 	});
 });
 
-/* FEHLERHAFT!
 //Suche
 app.post('/suche', function(req, res, next){
 	
-	// Dokumente in Collektion "songs" speichern
-	songsCollection.find({req.body.suchenach: req.body.suche}).toArray(function(err, result){
-		if(err){
-			next(err);
-		}
-		else{
-			console.log(req.body.titel + ' wurde der Datenbank hinzugefuegt')
-			res.write('Daten wurden gespeichert');
-		}
-	});
 });
-*/
 
+/*
 //GET auf Suche
 app.get('/suche', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
-	songsCollection.find().toArray(req.body, function(err, result){
+	songsCollection.find({req.body.suchenach :{ $regex: req.body.suche, $options: 'i'}}, function(err, result){
 		
 		// Fehlerbehandlung
 		if(err){
@@ -276,7 +266,7 @@ app.get('/suche', function(req, res, next){
 		}
 	});
 });
-
+*/
 
 // Errorhandler
 app.use(function (error, request, reponse, next){
