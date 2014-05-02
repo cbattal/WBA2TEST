@@ -55,6 +55,9 @@ app.post('/allsongs', function(req, res, next){
 	// Nachricht an Topic 'allsongs' publishen
 	var publication = pubClient.publish('/allsongs', req.body);
 
+	//Nachricht an Topic 'Updates' (alle Benachrichtigungen) publishen
+	var publication = pubClient.publish('/updates', req.body);
+
 	if(req.body.genre == "Rock"){
 		var publication = pubClient.publish('/rock', req.body);
 	}
@@ -174,6 +177,28 @@ app.get('/rnb', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find({genre: "RnB"}).sort({titel: 1}).toArray(function(err, result){
+		
+		// Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		// JSON-File an Client übertragen
+		else{
+			res.writeHead(200, {
+				'Content-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	});
+});
+
+// GET auf 'updates'
+app.get('/updates', function(req, res, next){
+
+	//Ruft alle Dokumente der Collection ab
+	songsCollection.find().sort({rating: -1}).toArray(function(err, result){
 		
 		// Fehlerbehandlung
 		if(err){
