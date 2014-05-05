@@ -5,14 +5,15 @@
 		<script type="text/javascript" src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src='jquery.tablesorter.js'></script>
 		<script type='text/javascript' src='/faye/client.js'></script>
 		<script type="text/javascript">
 			$(function(){
 				
-			
-				
+			 
+				$("#songstabelle").tablesorter();
 				// PubSub-Client erzeugen
 				var client = new Faye.Client('/faye');
 
@@ -63,22 +64,26 @@
 
 					
 				});
-
-			});
-
-			function addTableRow(songs){
+				
+				
+				function addTableRow(songs){
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
 					'<tr><td>'+songs.titel+'<input id="songid" type="hidden" value="'+songs._id+'"></td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
 			};
+			$("table").trigger("update"); 
+			 var sorting = [3,1]; 
+			$("#songstabelle").trigger("sorton",[sorting]);
 
 			function addVoteForm(songs){
 
 			};
+			 
+			});
+						
 			
-			 $("#songstabelle").tablesorter({ sortList: [3,0]});
-			
+						
 
 		</script>
 	</head>
@@ -127,6 +132,7 @@
             <div class="panel-body">
               <table id="songstabelle" class="tablesorter">
 				<thead>
+					
 					<th>Titel</th>
 					<th>Interpret</th>
 					<th>Gerne</th>
