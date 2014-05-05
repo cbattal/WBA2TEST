@@ -4,6 +4,7 @@
 		<title>Songs hinzufügen</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		<script type='text/javascript' src='/faye/client.js'></script>
 		<script type="text/javascript">
@@ -74,9 +75,16 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-	<br><br><br>
-			<h1>Lieder hinzufügen</h1>
-			<form id="songsform" name= "songsform" action="/allsongs" method="POST">
+	<br>
+	
+	<div class="jumbotron">
+	<section>
+		<div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Lieder hinzufügen</h3>
+            </div>
+            <div class="panel-body">
+             <form id="songsform" name= "songsform" action="/allsongs" method="POST">
 				<table>
 					<tr><td>Titel:</td><td><input id="titel" name="titel" type="application/json"></td></tr>
 					<tr><td>Interpret:</td><td><input id="interpret" name="interpret" type="application/json"></td></tr>
@@ -89,7 +97,12 @@
 					<tr><td><input type="submit" value="Senden"></td></tr>
 				</table>
 			</form>
-		</section>
+            </div>
+          </div>
+	
 
+			
+		</section>
+</div>
 	</body>
 </html>

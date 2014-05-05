@@ -4,6 +4,7 @@
 	<title>Auflistung der Hip-Hop Songs</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 		<script src="js/bootstrap.min.js"></script>
 		<script type='text/javascript' src='/faye/client.js'></script>
 		<script type="text/javascript">
@@ -81,10 +82,16 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-	<br><br><br>
+	<br>
+	<div class="jumbotron">
 		<section>
-			<h1>Tabelle mit Liedern aus dem Bereich Hip-Hop</h1>
-			<table id="songstabelle" border="1">
+		
+		<div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Tabelle mit Liedern aus dem Bereich Hip-Hop</h3>
+            </div>
+            <div class="panel-body">
+              <table id="songstabelle" border="1">
 				<thead>
 					<th>Titel</th>
 					<th>Interpret</th>
@@ -95,7 +102,12 @@
 
 				</tbody>
 			</table>
+            </div>
+          </div>
+		
+		
+			
 		</section>
-
+ </div>
 	</body>
 </html>
