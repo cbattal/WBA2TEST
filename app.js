@@ -106,7 +106,7 @@ app.get('/songs', function(req, res, next){
 	});
 });
 
-/*
+
 app.post('/songs/:_id', function(req, res, next){
 
 	//Update vom rating
@@ -127,7 +127,6 @@ app.post('/songs/:_id', function(req, res, next){
 	})
 
 });
-*/
 
 // GET auf 'rock'
 app.get('/rock', function(req, res, next){

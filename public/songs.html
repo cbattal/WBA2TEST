@@ -40,7 +40,8 @@
 				
 					// Auslesen des Formulars
 					var data = {
-						"rating": 1
+						"rating": 1,
+						"id": $('#songid').val()
 					};
 
 					var posten = $.ajax({
@@ -67,7 +68,7 @@
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
-					'<tr id="'+songs._id+'"><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
+					'<tr><td>'+songs.titel+'<input id="songid" type="hidden" value="'+songs._id+'"></td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
 			};
 
 			function addVoteForm(songs){
