@@ -109,8 +109,11 @@ app.get('/songs', function(req, res, next){
 
 app.post('/songs/:_id', function(req, res, next){
 
+	var id = req.body.id;
+	var rate = req.body.rating;
+
 	//Update vom rating
-	songsCollection.update({_id: '+req.body.id+'}, {rating: '+req.body.rating+'}).toArray(function(err, result){
+	songsCollection.update({_id: ObjectId("id")} , {rating: rate}).toArray(function(err, result){
 
 		//Fehlerbehandlung
 		if(err){

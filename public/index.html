@@ -16,31 +16,7 @@
 					addBenachrichtigung(message);
 				});
 
-				$('#suchform').submit(function(e){
-					e.preventDefault();
-				
-					// Auslesen des Formulars
-					var data = {
-						"sucheingabe": $('#sucheingabe').val(), 
-						"suchenach": $('#suchenach').val()
-					};
-
-					var posten = $.ajax({
-						type: 'POST',
-						url: '/suche',
-						data: JSON.stringify(data),
-						contentType: 'application/json'
-					});
-
-					posten.done(function(e){
-						alert(data.name+' wurde hinzugefuegt.');
-						$('#planetenform')[0].reset();
-					});
-					posten.fail(function(e){
-						alert(data.name+' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
-					});
-
-				});
+				//GET
 			
 				var requestlieder = $.ajax({
 					type: 'GET',
