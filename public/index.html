@@ -11,7 +11,7 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Planeten' abonnieren
-				var subscription = client.subscribe('/allsongs', function(message){
+				var subscription = client.subscribe('/songs', function(message){
 					//addTableRow(message);
 					addBenachrichtigung(message);
 				});
@@ -44,7 +44,7 @@
 			
 				var requestlieder = $.ajax({
 					type: 'GET',
-					url: '/allsongs',
+					url: '/songs',
 					contentType: 'application/json'
 				});
 
@@ -80,7 +80,7 @@
 	<body>
 		<!-- SUCHE -->
 		<section>
-			<form id="suchform" name= "suchform" action="/suche" method="POST">
+			<form id="suchform" name= "suchform" action="/suche" method="GET">
 				<table>
 					<tr>
 						<td><input id="sucheingabe" name="suche" type="application/json"></td>

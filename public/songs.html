@@ -45,7 +45,7 @@
 
 					var posten = $.ajax({
 						type: 'POST',
-						url: '/songs',
+						url: '/songs/:_id',
 						data: JSON.stringify(data),
 						contentType: 'application/json'
 					});
