@@ -14,13 +14,13 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Allen Songs' abonnieren
-				var subscription = client.subscribe('/allsongs', function(message){
+				var subscription = client.subscribe('/songs', function(message){
 					addTableRow(message);
 				});
 					
 				var request = $.ajax({
 					type: 'GET',
-					url: '/allsongs',
+					url: '/songs',
 					contentType: 'application/json'
 				});
 
@@ -34,14 +34,40 @@
 					alert('Es ist ein Fehler aufgetreten');
 				});
 
+				//Bewertung mit Like
+				$('#like').click(function(e){
+					e.preventDefault();
+				
+					// Auslesen des Formulars
+					var data = {
+						"rating": 1
+					};
+
+					var posten = $.ajax({
+						type: 'POST',
+						url: '/songs',
+						data: JSON.stringify(data),
+						contentType: 'application/json'
+					});
+
+					posten.done(function(e){
+						alert(data.titel +' wurde hinzugefuegt.');
+						$('#songsform')[0].reset();
+					});
+					posten.fail(function(e){
+						alert(data.titel +' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+					});
+
+					
+				});
+
 			});
 
 			function addTableRow(songs){
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
-					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs._id+'</td></tr>');
-				songsTable.find
+					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
 			};
 
 			function addVoteForm(songs){
@@ -62,6 +88,7 @@
 					<th>Interpret</th>
 					<th>Gerne</th>
 					<th>Rating</th>
+					<th>Voting</th>
 				</thead>
 				<tbody>
 
@@ -71,3 +98,4 @@
 
 	</body>
 </html>
+

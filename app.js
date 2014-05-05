@@ -39,7 +39,7 @@ if('developement' == app.get('env')) {
 }
 
 // POST auf allsongs
-app.post('/allsongs', function(req, res, next){
+app.post('/songs', function(req, res, next){
 	
 	// Dokumente in Collektion "songs" speichern
 	songsCollection.insert(req.body, function(err, result){
@@ -53,7 +53,7 @@ app.post('/allsongs', function(req, res, next){
 	});
 
 	// Nachricht an Topic 'allsongs' publishen
-	var publication = pubClient.publish('/allsongs', req.body);
+	var publication = pubClient.publish('/songs', req.body);
 
 	//Nachricht an Topic 'Updates' (alle Benachrichtigungen) publishen
 	//var publication = pubClient.publish('/updates', req.body);
@@ -85,7 +85,7 @@ app.post('/allsongs', function(req, res, next){
 });
 
 // GET auf 'allsongs'
-app.get('/allsongs', function(req, res, next){
+app.get('/songs', function(req, res, next){ 
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find().sort({titel: 1}).toArray(function(err, result){
@@ -105,6 +105,31 @@ app.get('/allsongs', function(req, res, next){
 		}
 	});
 });
+
+/*
+app.post('/songs/:_id', function(req, res, next){
+
+	req.body.
+
+	//Update vom rating
+	songsCollection.update({_id: }, {rating: }).toArray(function(err, result){
+
+		//Fehlerbehandlung
+		if(err){
+			next(err);
+		}
+
+		else{
+			res.writeHead(200, {
+				'Conten-Type': 'application/json'
+			});
+			res.write(JSON.stringify(result));
+			res.end();
+		}
+	})
+
+});
+*/
 
 // GET auf 'rock'
 app.get('/rock', function(req, res, next){
@@ -245,11 +270,14 @@ app.post('/suche', function(req, res, next){
 });
 
 /*
+// Keine Gute Ressource
 //GET auf Suche
 app.get('/suche', function(req, res, next){
 
+	req.body.param
+
 	//Ruft alle Dokumente der Collection ab
-	songsCollection.find({req.body.suchenach :{ $regex: req.body.suche, $options: 'i'}}, function(err, result){
+	songsCollection.find({req.body.suchenach :{ $regex: req.body.sucheingabe, $options: 'i'}}, function(err, result){
 		
 		// Fehlerbehandlung
 		if(err){
@@ -269,7 +297,7 @@ app.get('/suche', function(req, res, next){
 */
 
 // Errorhandler
-app.use(function (error, request, reponse, next){
+app.use(function (error, request, response, next){
 	console.error(error.stack);
 	response.writeHead(500, 'Ein Fehler ist aufgetreten');
 	response.end(error.message);
