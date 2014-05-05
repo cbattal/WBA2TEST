@@ -67,7 +67,7 @@
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
-					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
+					'<tr id="'+songs._id+'"><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
 			};
 
 			function addVoteForm(songs){
