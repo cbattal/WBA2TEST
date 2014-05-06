@@ -110,6 +110,8 @@ app.get('/songs', function(req, res, next){
 
 app.put('/songs/:id', function(req, res, next){
 
+	console.log(req.body.id + ' & ' + req.body.rating);
+	
 	if(req.body.rating == 1){
 		//Song positiv bewertet
 		songsCollection.updateById(req.params.id, {$inc: {rating: 1}}).toArray(function(err, result){
@@ -120,7 +122,7 @@ app.put('/songs/:id', function(req, res, next){
 			}
 
 			else{
-				console.log(req.body.id + ' & ' + req.body.rating)
+				
 				res.writeHead(200, {
 					'Conten-Type': 'application/json'
 				});
@@ -239,8 +241,6 @@ app.get('/songs/rnb', function(req, res, next){
 });
 
 
-// Keine Gute Ressource
-//GET auf Suche
 app.get('/songs/suche', function(req, res, next){
 
 	var suchenach = req.query.suchenach;

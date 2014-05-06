@@ -55,11 +55,10 @@
 					});
 
 					posten.done(function(e){
-						alert(data.titel +' wurde hinzugefuegt.');
-						$('#songsform')[0].reset();
+						alert('Vielen Dank für Ihre Bewertung!');
 					});
 					posten.fail(function(e){
-						alert(data.titel +' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+						alert('Bewertung fehlgeschlagen. Versuchen sie es erneut! ('+JSON.stringify(e)+')');
 					});
 
 					
@@ -82,11 +81,10 @@
 					});
 
 					posten.done(function(e){
-						alert(data.titel +' wurde hinzugefuegt.');
-						$('#songsform')[0].reset();
+						alert('Vielen Dank für Ihre Bewertung!');
 					});
 					posten.fail(function(e){
-						alert(data.titel +' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+						alert('Bewertung fehlgeschlagen. Versuchen sie es erneut! ('+JSON.stringify(e)+')');
 					});
 
 					
