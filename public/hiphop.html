@@ -40,7 +40,7 @@
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
-					'<tr><td>'+songs.titel+'</td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td></tr>');
+					'<tr><td align="center" valign="middle">'+songs.titel+'</td><td align="center" valign="middle">'+songs.interpret+'</td><td align="center" valign="middle">'+songs.genre+'</td><td align="center" valign="middle">'+songs.rating+'</td></tr>');
 			};
 
 			function addVoteForm(songs){
@@ -91,12 +91,12 @@
               <h3 class="panel-title">Tabelle mit Liedern aus dem Bereich Hip-Hop</h3>
             </div>
             <div class="panel-body">
-              <table id="songstabelle" border="1">
+              <table id="songstabelle" width="25%" border="3" frame="box">
 				<thead>
-					<th>Titel</th>
-					<th>Interpret</th>
-					<th>Gerne</th>
-					<th>Rating</th>
+					<th><center>Titel</center></th>
+					<th><center>Interpret</center></th>
+					<th><center>Gerne</center></th>
+					<th><center>Rating</center></th>
 				</thead>
 				<tbody>
 
