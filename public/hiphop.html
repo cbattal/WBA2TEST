@@ -14,13 +14,13 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Allen Songs' abonnieren
-				var subscription = client.subscribe('/hiphop', function(message){
+				var subscription = client.subscribe('/songs/hiphop', function(message){
 					addTableRow(message);
 				});
 					
 				var request = $.ajax({
 					type: 'GET',
-					url: '/hiphop',
+					url: '/songs/hiphop',
 					contentType: 'application/json'
 				});
 

@@ -15,13 +15,13 @@
 				var client = new Faye.Client('/faye');
 
 				// Topic 'Allen Songs' abonnieren
-				var subscription = client.subscribe('/rock', function(message){
+				var subscription = client.subscribe('/songs/rock', function(message){
 					addTableRow(message);
 				});
 					
 				var request = $.ajax({
 					type: 'GET',
-					url: '/rock',
+					url: '/songs/rock',
 					contentType: 'application/json'
 				});
 

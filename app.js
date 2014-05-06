@@ -60,16 +60,16 @@ app.post('/songs', function(req, res, next){
 	//var publication = pubClient.publish('/updates', req.body);
 
 	if(req.body.genre == "Rock"){
-		var publication = pubClient.publish('/rock', req.body);
+		var publication = pubClient.publish('/songs/rock', req.body);
 	}
 	if(req.body.genre == "Pop"){
-		var publication = pubClient.publish('/pop', req.body);
+		var publication = pubClient.publish('/songs/pop', req.body);
 	}
 	if(req.body.genre == "RnB"){
-		var publication = pubClient.publish('/rnb', req.body);
+		var publication = pubClient.publish('/songs/rnb', req.body);
 	}
 	if(req.body.genre == "Hip Hop"){
-		var publication = pubClient.publish('/hiphop', req.body);
+		var publication = pubClient.publish('/songs/hiphop', req.body);
 	}
 
 
@@ -151,7 +151,7 @@ app.post('/songs/:_id', function(req, res, next){
 });
 
 // GET auf 'rock'
-app.get('/rock', function(req, res, next){
+app.get('/songs/rock', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find({genre: "Rock"}).sort({titel: 1}).toArray(function(err, result){
@@ -173,7 +173,7 @@ app.get('/rock', function(req, res, next){
 });
 
 // GET auf 'hip hop'
-app.get('/hiphop', function(req, res, next){
+app.get('/songs/hiphop', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find({genre: "Hip Hop"}).sort({titel: 1}).toArray(function(err, result){
@@ -195,7 +195,7 @@ app.get('/hiphop', function(req, res, next){
 });
 
 // GET auf 'pop'
-app.get('/pop', function(req, res, next){
+app.get('/songs/pop', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find({genre: "Pop"}).sort({titel: 1}).toArray(function(err, result){
@@ -217,7 +217,7 @@ app.get('/pop', function(req, res, next){
 });
 
 // GET auf 'rnb'
-app.get('/rnb', function(req, res, next){
+app.get('/songs/rnb', function(req, res, next){
 
 	//Ruft alle Dokumente der Collection ab
 	songsCollection.find({genre: "RnB"}).sort({titel: 1}).toArray(function(err, result){
