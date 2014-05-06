@@ -64,14 +64,43 @@
 
 					
 				});
+
+				//Bewertung mit Dislike
+				$('#dislike').click(function(e){
 				
+					// Auslesen des Formulars
+					var data = {
+						"rating": -1,
+						"id": $('#songid').val()
+					};
+
+					var posten = $.ajax({
+						type: 'POST',
+						url: '/songs/:_id',
+						data: JSON.stringify(data),
+						contentType: 'application/json'
+					});
+
+					posten.done(function(e){
+						alert(data.titel +' wurde hinzugefuegt.');
+						$('#songsform')[0].reset();
+					});
+					posten.fail(function(e){
+						alert(data.titel +' konnte nicht hinzugefuegt werden. ('+JSON.stringify(e)+')');
+					});
+
+					
+				});
+			
+			});
 				
-				function addTableRow(songs){
+			function addTableRow(songs){
 				var songsTable = $('#songstabelle');
 
 				songsTable.find('tbody').append(
 					'<tr><td>'+songs.titel+'<input id="songid" type="hidden" value="'+songs._id+'"></td><td>'+songs.interpret+'</td><td>'+songs.genre+'</td><td>'+songs.rating+'</td><td><button id="like" type="button">Like</button><button id="dislike" type="button">Dislike</button></td></tr>');
 			};
+
 			$("table").trigger("update"); 
 			 var sorting = [3,1]; 
 			$("#songstabelle").trigger("sorton",[sorting]);						

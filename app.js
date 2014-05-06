@@ -107,28 +107,44 @@ app.get('/songs', function(req, res, next){
 });
 
 
-app.post('/songs/:_id', function(req, res, next){
+app.put('/songs/:_id', function(req, res, next){
 
-	var id = req.body.id;
-	var rate = req.body.rating;
+	if(req.body.rating == 1){
+		//Song positiv bewertet
+		songsCollection.update({_id: ObjectId('"'+req.body.id+'"')} , {$inc: {rating: 1}}).toArray(function(err, result){
 
-	//Update vom rating
-	songsCollection.update({_id: ObjectId("id")} , {rating: rate}).toArray(function(err, result){
+			//Fehlerbehandlung
+			if(err){
+				next(err);
+			}
 
-		//Fehlerbehandlung
-		if(err){
-			next(err);
-		}
+			else{
+				res.writeHead(200, {
+					'Conten-Type': 'application/json'
+				});
+				res.write(JSON.stringify(result));
+				res.end();
+			}
+		});
+	}
+	else{
+		//Song negativ bewertet
+		songsCollection.update({_id: ObjectId('"'+req.body.id+'"')} , {$inc: {rating: -1}}).toArray(function(err, result){
 
-		else{
-			res.writeHead(200, {
-				'Conten-Type': 'application/json'
-			});
-			res.write(JSON.stringify(result));
-			res.end();
-		}
-	})
+			//Fehlerbehandlung
+			if(err){
+				next(err);
+			}
 
+			else{
+				res.writeHead(200, {
+					'Conten-Type': 'application/json'
+				});
+				res.write(JSON.stringify(result));
+				res.end();
+			}
+		});	
+	}
 });
 
 // GET auf 'rock'
@@ -242,27 +258,6 @@ app.get('/updates', function(req, res, next){
 });
 */
 
-// GET auf 'top5'
-app.get('/top5', function(req, res, next){
-
-	//Ruft alle Dokumente der Collection ab
-	songsCollection.find().sort({rating: -1}).toArray(function(err, result){
-		
-		// Fehlerbehandlung
-		if(err){
-			next(err);
-		}
-
-		// JSON-File an Client übertragen
-		else{
-			res.writeHead(200, {
-				'Content-Type': 'application/json'
-			});
-			res.write(JSON.stringify(result));
-			res.end();
-		}
-	});
-});
 
 //Suche
 app.post('/suche', function(req, res, next){
