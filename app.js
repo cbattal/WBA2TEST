@@ -108,11 +108,11 @@ app.get('/songs', function(req, res, next){
 });
 
 
-app.post('/songs/:_id', function(req, res, next){
+app.put('/songs/:id', function(req, res, next){
 
 	if(req.body.rating == 1){
 		//Song positiv bewertet
-		songsCollection.update({_id: ObjectId('"'+req.body.id+'"')} , {$inc: {rating: 1}}).toArray(function(err, result){
+		songsCollection.updateById(req.params.id, {$inc: {rating: 1}}).toArray(function(err, result){
 
 			//Fehlerbehandlung
 			if(err){
@@ -132,7 +132,7 @@ app.post('/songs/:_id', function(req, res, next){
 	}
 	else{
 		//Song negativ bewertet
-		songsCollection.update({_id: ObjectId('"'+req.body.id+'"')} , {$inc: {rating: -1}}).toArray(function(err, result){
+		songsCollection.updateById(req.params.id, {$inc: {rating: -1}}).toArray(function(err, result){
 
 			//Fehlerbehandlung
 			if(err){
@@ -237,54 +237,52 @@ app.get('/songs/rnb', function(req, res, next){
 		}
 	});
 });
-/*
-// GET auf 'updates'
-app.get('/updates', function(req, res, next){
-
-	//Ruft alle Dokumente der Collection ab
-	songsCollection.find().sort({rating: -1}).toArray(function(err, result){
-		
-		// Fehlerbehandlung
-		if(err){
-			next(err);
-		}
-
-		// JSON-File an Client übertragen
-		else{
-			res.writeHead(200, {
-				'Content-Type': 'application/json'
-			});
-			res.write(JSON.stringify(result));
-			res.end();
-		}
-	});
-});
-*/
 
 
 // Keine Gute Ressource
 //GET auf Suche
-app.get('/suche', function(req, res, next){
+app.get('/songs/suche', function(req, res, next){
 
 	var suchenach = req.query.suchenach;
 
-	//Ruft alle Dokumente der Collection ab
-	songsCollection.find({suchenach :{ $regex: '"\b'+req.query.sucheingabe+'b\"', $options: 'i'}}, function(err, result){
-		
-		// Fehlerbehandlung
-		if(err){
-			next(err);
-		}
+	if(suchenach == "titel"){
+		//Ruft alle Dokumente der Collection ab
+		songsCollection.find({titel: { $regex: '"\b'+req.query.sucheingabe+'b\"', $options: 'i'}}, function(err, result){
+			
+			// Fehlerbehandlung
+			if(err){
+				next(err);
+			}
 
-		// JSON-File an Client übertragen
-		else{
-			res.writeHead(200, {
-				'Content-Type': 'application/json'
-			});
-			res.write(JSON.stringify(result));
-			res.end();
-		}
-	});
+			// JSON-File an Client übertragen
+			else{
+				res.writeHead(200, {
+					'Content-Type': 'application/json'
+				});
+				res.write(JSON.stringify(result));
+				res.end();
+			}
+		});
+	}
+	if(suchenach == "interpret"){
+		//Ruft alle Dokumente der Collection ab
+		songsCollection.find({interpret: { $regex: '"\b'+req.query.sucheingabe+'b\"', $options: 'i'}}, function(err, result){
+			
+			// Fehlerbehandlung
+			if(err){
+				next(err);
+			}
+
+			// JSON-File an Client übertragen
+			else{
+				res.writeHead(200, {
+					'Content-Type': 'application/json'
+				});
+				res.write(JSON.stringify(result));
+				res.end();
+			}
+		});
+	}
 });
 
 
