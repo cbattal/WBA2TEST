@@ -48,7 +48,7 @@
 					};
 
 					var posten = $.ajax({
-						type: 'POST',
+						type: 'PUT',
 						url: '/songs/:id/rating',
 						data: JSON.stringify(data),
 						contentType: 'application/json'
@@ -74,7 +74,7 @@
 					};
 
 					var posten = $.ajax({
-						type: 'POST',
+						type: 'PUT',
 						url: '/songs/:id/rating',
 						data: JSON.stringify(data),
 						contentType: 'application/json'
