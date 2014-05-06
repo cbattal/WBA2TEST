@@ -33,12 +33,13 @@ var pubClient = bayeux.getClient();
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(express.methodOverride());
 
 if('developement' == app.get('env')) {
 	app.use(express.errorHandler());
 }
 
-// POST auf allsongs
+// POST auf ongs
 app.post('/songs', function(req, res, next){
 	
 	// Dokumente in Collektion "songs" speichern
@@ -52,7 +53,7 @@ app.post('/songs', function(req, res, next){
 		}
 	});
 
-	// Nachricht an Topic 'allsongs' publishen
+	// Nachricht an Topic '/songs' publishen
 	var publication = pubClient.publish('/songs', req.body);
 
 	//Nachricht an Topic 'Updates' (alle Benachrichtigungen) publishen
@@ -84,7 +85,7 @@ app.post('/songs', function(req, res, next){
 	});
 });
 
-// GET auf 'allsongs'
+// GET auf 'songs'
 app.get('/songs', function(req, res, next){ 
 
 	//Ruft alle Dokumente der Collection ab
@@ -107,7 +108,7 @@ app.get('/songs', function(req, res, next){
 });
 
 
-app.put('/songs/:_id', function(req, res, next){
+app.post('/songs/:_id', function(req, res, next){
 
 	if(req.body.rating == 1){
 		//Song positiv bewertet
@@ -119,11 +120,13 @@ app.put('/songs/:_id', function(req, res, next){
 			}
 
 			else{
+				console.log(req.body.id + ' & ' + req.body.rating)
 				res.writeHead(200, {
 					'Conten-Type': 'application/json'
 				});
 				res.write(JSON.stringify(result));
 				res.end();
+				
 			}
 		});
 	}
@@ -259,20 +262,14 @@ app.get('/updates', function(req, res, next){
 */
 
 
-//Suche
-app.post('/suche', function(req, res, next){
-	
-});
-
-/*
 // Keine Gute Ressource
 //GET auf Suche
 app.get('/suche', function(req, res, next){
 
-	req.body.param
+	var suchenach = req.query.suchenach;
 
 	//Ruft alle Dokumente der Collection ab
-	songsCollection.find({req.body.suchenach :{ $regex: req.body.sucheingabe, $options: 'i'}}, function(err, result){
+	songsCollection.find({suchenach :{ $regex: '"\b'+req.query.sucheingabe+'b\"', $options: 'i'}}, function(err, result){
 		
 		// Fehlerbehandlung
 		if(err){
@@ -289,7 +286,7 @@ app.get('/suche', function(req, res, next){
 		}
 	});
 });
-*/
+
 
 // Errorhandler
 app.use(function (error, request, response, next){
